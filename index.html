@@ -4,66 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة الأنظمة الموحدة</title>
+    <!-- خط Tajawal للحصول على مظهر احترافي -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
 
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-        }
-
-        /* القائمة الرئيسية */
-        .main-menu {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            transition: 0.5s;
-        }
-
-        h1 { color: #fff; margin-bottom: 30px; font-size: 1.8rem; }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
             color: white;
-            padding: 18px;
-            margin: 10px 0;
+        }
+
+        /* حاوية القائمة الرئيسية */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            padding: 50px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .links-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card-link {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
             border-radius: 12px;
+            color: #fff;
             cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
         }
 
-        .nav-btn:hover {
-            background: rgba(0, 210, 255, 0.2);
-            transform: translateY(-3px);
+        .card-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
             border-color: #00d2ff;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
         }
 
-        /* حاوية الموقع (iFrame) */
-        #site-viewer {
+        /* نقطة الحالة النابضة */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            margin-left: 15px;
+            box-shadow: 0 0 8px #2ecc71;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+
+        /* حاوية عرض المواقع (Iframe) */
+        #viewer-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: white;
-            display: none; /* مخفي افتراضياً */
-            z-index: 100;
+            display: none;
+            z-index: 1000;
         }
 
         iframe {
@@ -72,80 +108,91 @@
             border: none;
         }
 
-        /* زر العودة */
-        .back-bar {
+        /* زر العودة الذكي */
+        .back-btn {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px 30px;
+            color: #00d2ff;
+            padding: 12px 35px;
             border-radius: 50px;
             cursor: pointer;
-            z-index: 200;
+            z-index: 2000;
             display: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            border: 1px solid #00d2ff;
             font-weight: bold;
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+            transition: 0.3s;
         }
 
-        .back-bar:hover { background: #00d2ff; color: #000; }
+        .back-btn:hover {
+            background: #00d2ff;
+            color: #000;
+        }
 
     </style>
 </head>
 <body>
 
-<!-- الواجهة الرئيسية -->
-<div class="main-menu" id="mainMenu">
-    <h1>لوحة التحكم الموحدة</h1>
+<!-- القائمة الرئيسية -->
+<div class="glass-panel" id="mainMenu">
+    <h1>روابط ادارية</h1>
     
-    <div class="nav-btn" onclick="openSite('https://melsawaf9193-dotcom.github.io/mo5lfat/')">
-        نظام إدارة المخلفات
-    </div>
+    <div class="links-container">
+        <div class="card-link" onclick="loadSite('https://melsawaf9193-dotcom.github.io/mo5lfat/')">
+            <span class="status-dot"></span>
+            شوون الهلال الاحمر
+        </div>
 
-    <div class="nav-btn" onclick="openSite('https://red-crescent-boleto.github.io/Administrative-Affairs/')">
-        الشؤون الإدارية
-    </div>
+        <div class="card-link" onclick="loadSite('https://red-crescent-boleto.github.io/Administrative-Affairs/')">
+            <span class="status-dot"></span>
+            الشؤون الإداريةر
+        </div>
 
-    <div class="nav-btn" onclick="openSite('https://boleto-reportss.netlify.app/')">
-        منصة التقارير
+        <div class="card-link" onclick="loadSite('https://boleto-reportss.netlify.app/')">
+            <span class="status-dot"></span>
+            تصحيح التقرير
+        </div>
     </div>
 </div>
 
-<!-- حاوية العرض -->
-<div id="site-viewer">
-    <iframe id="target-frame" src=""></iframe>
+<!-- إطار العرض -->
+<div id="viewer-container">
+    <iframe id="siteFrame" src=""></iframe>
 </div>
 
-<!-- زر العودة الثابت -->
-<div class="back-bar" id="backBtn" onclick="closeSite()">
-    ⬅ العودة للرئيسية
+<!-- زر العودة -->
+<div class="back-btn" id="backBtn" onclick="unloadSite()">
+    🔙 العودة للواجهة الأساسية
 </div>
 
 <script>
-    function openSite(url) {
-        const viewer = document.getElementById('site-viewer');
-        const frame = document.getElementById('target-frame');
-        const backBtn = document.getElementById('backBtn');
-        const mainMenu = document.getElementById('mainMenu');
+    function loadSite(url) {
+        const menu = document.getElementById('mainMenu');
+        const viewer = document.getElementById('viewer-container');
+        const frame = document.getElementById('siteFrame');
+        const btn = document.getElementById('backBtn');
 
+        // تحميل الرابط وإظهار الإطار
         frame.src = url;
         viewer.style.display = 'block';
-        backBtn.style.display = 'block';
-        mainMenu.style.display = 'none';
+        btn.style.display = 'block';
+        menu.style.opacity = '0'; // إخفاء القائمة بنعومة
     }
 
-    function closeSite() {
-        const viewer = document.getElementById('site-viewer');
-        const frame = document.getElementById('target-frame');
-        const backBtn = document.getElementById('backBtn');
-        const mainMenu = document.getElementById('mainMenu');
+    function unloadSite() {
+        const menu = document.getElementById('mainMenu');
+        const viewer = document.getElementById('viewer-container');
+        const frame = document.getElementById('siteFrame');
+        const btn = document.getElementById('backBtn');
 
-        frame.src = ''; // تفريغ الإطار لتوفير الذاكرة
+        // إغلاق الإطار والعودة
+        frame.src = '';
         viewer.style.display = 'none';
-        backBtn.style.display = 'none';
-        mainMenu.style.display = 'block';
+        btn.style.display = 'none';
+        menu.style.opacity = '1';
     }
 </script>
 
